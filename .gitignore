@@ -2,3 +2,5 @@
 *.d
 vdbwm
 compile_commands.json
+*.o
+examples/bare_surface

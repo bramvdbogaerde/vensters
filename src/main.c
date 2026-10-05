@@ -92,7 +92,7 @@ int main() {
 
     setenv("WAYLAND_DISPLAY", socket, true);
     if (fork() == 0) {
-        execl("/bin/sh", "/bin/sh", "-c", "./examples/bare_surface", NULL);
+        execl("/bin/sh", "/bin/sh", "-c", "/usr/bin/kitty", NULL);
     }
 
     wlr_log(WLR_INFO, "Running Wayland compositor on WAYLAND_DISPLAY=%s", socket);

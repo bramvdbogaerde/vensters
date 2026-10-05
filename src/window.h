@@ -9,7 +9,10 @@
 
 typedef struct {
     vdbwm_server* _srv;
+    struct wlr_xdg_shell* _wlr_xdg_shell;
     vlistener _create_surface;
+    vlistener _destroy_xdg_shell;
+    vlistener _toplevel_connect;
 } window_manager;
 
 /** 

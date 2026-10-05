@@ -12,8 +12,18 @@ vdbwm: $(object_files)
 
 examples: examples/bare_surface
 
-examples/bare_surface: examples/bare_surface.c
-	gcc $< $(shell pkg-config --cflags --libs wayland-client) -o $@
+wayland_protocols = $(shell pkg-config --variable=pkgdatadir wayland-protocols)
+wayland_scanner = $(shell pkg-config --variable=wayland_scanner wayland-scanner)
+xdg_shell_xml = $(wayland_protocols)/stable/xdg-shell/xdg-shell.xml
+
+examples/xdg-shell-client-protocol.h:
+	$(wayland_scanner) client-header $(xdg_shell_xml) $@
+
+examples/xdg-shell-protocol.c:
+	$(wayland_scanner) private-code $(xdg_shell_xml) $@
+
+examples/bare_surface: examples/bare_surface.c examples/xdg-shell-protocol.c examples/xdg-shell-client-protocol.h
+	gcc -Iexamples examples/bare_surface.c examples/xdg-shell-protocol.c $(shell pkg-config --cflags --libs wayland-client) -o $@
 
 -include $(deps)
 
@@ -21,4 +31,4 @@ examples/bare_surface: examples/bare_surface.c
 	gcc $(CXXFLAGS) -c $< -o $@
 
 clean: 
-	rm -f $(object_files) $(deps) examples/bare_surface
+	rm -f $(object_files) $(deps) examples/bare_surface examples/xdg-shell-protocol.c examples/xdg-shell-client-protocol.h
