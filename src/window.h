@@ -6,6 +6,7 @@
 #define WINDOW_H
 
 #include "server.h"
+#include <wlr/types/wlr_xdg_decoration_v1.h>
 
 typedef struct {
     vdbwm_server* _srv;

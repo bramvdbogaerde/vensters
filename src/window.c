@@ -1,5 +1,6 @@
 #include "window.h"
 #include "server.h"
+#include "wlr/types/wlr_xdg_decoration_v1.h"
 #include "wlr/util/log.h"
 #include <stdlib.h>
 #include <wlr/types/wlr_compositor.h>
@@ -39,7 +40,7 @@ static void toplevel_xdg_shell(window_manager* mgr, struct wlr_xdg_toplevel* top
     vdbwm_server* srv = mgr->_srv;
     // add the requested surface to the scene graph
     struct wlr_scene_tree* tree = wlr_scene_xdg_surface_create(&srv->wlr_scene->tree, toplevel->base);
-
+    wlr_scene_node_set_position(&tree->node, 100, 100);
     // create an internally managed window for the client
     vwindow* win = malloc(sizeof(vwindow));
     if (win == NULL) {
