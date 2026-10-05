@@ -106,11 +106,9 @@ static void new_output(output_manager* mgr, struct wlr_output* output) {
     // ^ adds the new output to the scene
 
     // Callback for when we are ready to display new frames,
-    // this is were the drawing actually happens.
+    // this is where the drawing actually happens.
     output_frame_connect(&our_output->output_frame, our_output, &output->events.frame);
 
-    // TODO: register callbacks for new frames
-    // TODO: do some scene management to place the output into the scene somewhere
     wl_list_insert(&mgr->_outputs, &our_output->link);
 }
 
